@@ -1,0 +1,7 @@
+{
+  "name": "notitas-pioleins-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
