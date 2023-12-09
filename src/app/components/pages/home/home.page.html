@@ -1,0 +1,66 @@
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header>Notitas Pioleins</ion-list-header>
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of []; let i = index">
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">  
+<ion-header [translucent]="false">
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+    <ion-list>
+      <ion-item-sliding *ngFor="let note of notes">
+        <ion-item>
+          <ion-label>{{note.title}}</ion-label>
+        </ion-item>
+    
+        <ion-item-options>
+          <ion-item-option (click)="setOpen(true, note)">Editar</ion-item-option>
+          <ion-item-option color="danger" (click)="deleteNote(note)">Eliminar</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button  (click)="setOpen(true)" color="tertiary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-content class="ion-padding">
+          <div class="container-close">
+            <ion-label class="close" (click)="onWillDismiss()">x</ion-label>
+          </div>
+
+          <ion-input class="title" type="text" placeholder="Título" [(ngModel)]="note.title"></ion-input>
+
+          <ion-list>
+            <ion-item *ngFor="let c of note.checks; let i = index">
+              <ion-checkbox slot="start" [(ngModel)]="c.value"></ion-checkbox>
+              <ion-label *ngIf="!c.state" (click)="changeState(c, true, i)">{{c.text}}</ion-label>
+              <ion-input [id]="'state_'+i" *ngIf="c.state == true" type="text" placeholder="Elemento" (blur)="changeState(c, false, i)"[(ngModel)]="c.text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start"  (click)="addElement()" name="add"></ion-icon>
+              <ion-input type="text" placeholder="Elemento" [(ngModel)]="element" (blur)="addElement()"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+</ion-content>
+</div>

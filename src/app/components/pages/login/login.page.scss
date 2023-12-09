@@ -1,0 +1,15 @@
+ion-content{
+    --padding-start: 1rem;
+    --padding-end: 1rem;
+}
+
+.btn-google{
+    margin-top: 20rem;
+    border: 1px solid gray;
+    border-radius: 25px;
+    img {
+        height: 2rem;
+        width: 2rem;
+        margin-right: .5rem;
+    }
+}
