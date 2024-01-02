@@ -8,6 +8,7 @@ export const environment = {
     messagingSenderId: '1054027898479',
     measurementId: 'G-F48W6MGX1T',
   },
+  clientId: "1054027898479-mu9202e9krmdbljngbc1bjddvnmleehg.apps.googleusercontent.com",
   production: true,
   debug: false
 };
