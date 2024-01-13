@@ -6,8 +6,14 @@ import { HomePage } from './home.page';
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
-  }
+    component: HomePage,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./note-list/note-list.module').then( m => m.NoteListPageModule)
+      }
+    ]
+  },
 ];
 
 @NgModule({

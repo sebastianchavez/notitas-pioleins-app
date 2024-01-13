@@ -1,0 +1,20 @@
+  <ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-item button class="profile" (click)="goToProfile()">
+        <div class="container-profile">
+          <img src="assets/imgs/no-profile.jpg" alt="">
+          <ion-label>Nombre de usuario</ion-label>
+        </div>
+    </ion-item>
+    <div class="container-list">
+      <ion-list id="inbox-list">
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of []; let i = index">
+        </ion-menu-toggle>
+      </ion-list>
+      <ion-item button (click)="logOut()" lines="none">
+        <ion-icon slot="start" name="exit-outline"></ion-icon>
+        <ion-label>Cerrar sesion</ion-label>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-menu>

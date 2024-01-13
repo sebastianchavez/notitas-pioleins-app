@@ -1,0 +1,30 @@
+.container-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+}
+
+.profile {
+    --min-height: 25vh;
+    width: 100%;
+    margin: 0px;
+    --background: var(--ion-color-success);
+    color: white;
+    --border-radius: 0px !important;
+}
+
+.container-list{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 75vh;
+}

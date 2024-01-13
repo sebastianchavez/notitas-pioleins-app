@@ -70,7 +70,6 @@ export class UserService {
   getStatus(): Promise<any>{
     return new Promise(async(resolve, reject) => {
       const currentUser = await this.storageService.get('currentUser')
-      console.log({currentUser});
       if(currentUser){
         resolve(currentUser)
       } else {
