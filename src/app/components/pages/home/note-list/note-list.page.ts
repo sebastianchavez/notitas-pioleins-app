@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TypesNote } from 'src/app/common/enums/types-note.enum';
-// import { ModalNoteComponent } from 'src/app/components/modals/modal-note/modal-note.component';
+import { ModalNoteComponent } from 'src/app/components/modals/modal-note/modal-note.component';
 import { INote } from 'src/app/model/interfaces/note.interface';
 import { IUser } from 'src/app/model/interfaces/user.interface';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -20,10 +20,10 @@ export class NoteListPage implements OnInit {
   notes: INote[] = []
   note: INote = {
     title: '',
-    checks: [],
+    description: '',
+    lists: [],
     createdAt: Date.now(),
     idUser: '',
-    type: TypesNote.TASKLIST,
     updatedAt: Date.now(),
   }
 
@@ -43,18 +43,18 @@ export class NoteListPage implements OnInit {
       this.note = note
     }
     try {
-      // const modal = await this.modalController.create({
-      //   component: ModalNoteComponent,
-      //   componentProps: {
-      //     note: this.note
-      //   }
-      // })
-      // modal.present()
+      const modal = await this.modalController.create({
+        component: ModalNoteComponent,
+        componentProps: {
+          note: this.note
+        }
+      })
+      modal.present()
 
-      // const { data, role } = await modal.onWillDismiss()
-      // if(data){
-      //   this.getNotes()
-      // }
+      const { data, role } = await modal.onWillDismiss()
+      if(data){
+        this.getNotes()
+      }
     } catch (error) {
       this.logger.error(this.idLog, this.openModal.name, {info: 'Error', error})
     }
@@ -76,10 +76,10 @@ export class NoteListPage implements OnInit {
   clearNote(){
     this.note = {
       title: '',
-      checks: [],
+      description: '',
+      lists: [],
       createdAt: Date.now(),
       idUser: this.user?.idUser!  ,
-      type: TypesNote.TASKLIST,
       updatedAt: Date.now(),
     }
   }

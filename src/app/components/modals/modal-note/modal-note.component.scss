@@ -1,0 +1,28 @@
+ion-header {
+    ion-toolbar {
+        --background: #ECF0F1;
+    }
+    ion-item {
+        --background: transparent !important;
+    }
+}
+
+ion-content {
+    --background: #ECF0F1;
+}
+
+.container-title {
+    padding: 1rem;
+    background-color: white;
+}
+
+.container-list {
+    margin-top: 1rem;
+    background-color: white;
+}
+
+.header-list {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}

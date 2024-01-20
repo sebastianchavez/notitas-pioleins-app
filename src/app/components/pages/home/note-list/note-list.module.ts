@@ -7,14 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { NoteListPageRoutingModule } from './note-list-routing.module';
 
 import { NoteListPage } from './note-list.page';
-// import { ModalNoteModule } from 'src/app/components/modals/modal-note/modal-note.module';
+import { ModalNoteModule } from 'src/app/components/modals/modal-note/modal-note.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    // ModalNoteModule,
+    ModalNoteModule,
     NoteListPageRoutingModule
   ],
   declarations: [NoteListPage]

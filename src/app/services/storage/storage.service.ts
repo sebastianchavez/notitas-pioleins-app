@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Capacitor } from '@capacitor/core';
 import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
@@ -6,9 +7,11 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class StorageService {
   private _storage: Storage | null = null;
-
+  private isNative = Capacitor.isNativePlatform()
   constructor(private storage: Storage) {
-    this.init();
+    if(this.isNative){
+      this.init();
+    }
   }
 
   async init() {
@@ -20,14 +23,26 @@ export class StorageService {
   // Create and expose methods that users of this service can
   // call, for example:
   public set(key: string, value: any) {
-    this._storage?.set(key, value);
+    if(this.isNative){
+      this._storage?.set(key, value);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value))
+    }
   }
 
   public get(key: string) {
-    return this._storage?.get(key);
+    if(this.isNative){
+      return this._storage?.get(key);
+    } else {
+      return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)!) : null
+    }
   }
 
   public remove(key: string) {
-    return this._storage?.remove(key);
+    if(this.isNative){
+      return this._storage?.remove(key);
+    } else {
+      return localStorage.removeItem(key)
+    }
   }
 }

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <ion-button fill="clear" shape="round" slot="start" color="dark" (click)="onWillDismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" shape="round" slot="end" color="dark" id="click-trigger">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+      <ion-popover trigger="click-trigger" triggerAction="click" [dismissOnSelect]="true">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item lines="none" [button]="true" [detail]="false" (click)="addList()">Agregar lista</ion-item>              
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container-title">
+    <ion-input class="title" type="text" placeholder="Título" [(ngModel)]="note.title"></ion-input>
+    <ion-textarea rows="3" placeholder="Descripción" [(ngModel)]="note.description"></ion-textarea>
+  </div>
+
+
+  <div class="container-list" *ngFor="let l of note.lists; let il = index">
+    <div class="header-list">
+      <ion-input type="text" class="title" placeholder="Título" [(ngModel)]="l.title"></ion-input>
+      <ion-button fill="clear" shape="round" color="dark" (click)="deleteList(il)">
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let c of l.checks; let i = index">
+        <ion-checkbox slot="start" [(ngModel)]="c.value"></ion-checkbox>
+        <ion-label *ngIf="!c.state" (click)="changeState(c, true, il, i)">{{c.text}}</ion-label>
+        <ion-input [id]="'state_'+il+'_'+i" *ngIf="c.state == true" type="text" placeholder="Elemento" (blur)="changeState(c, false, il, i)"[(ngModel)]="c.text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start"  (click)="addElement(il)" name="add"></ion-icon>
+        <ion-input type="text" placeholder="Elemento" [(ngModel)]="element[il]" (blur)="addElement(il)"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
