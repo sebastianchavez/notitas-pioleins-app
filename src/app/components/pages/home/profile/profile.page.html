@@ -1,0 +1,25 @@
+<ion-header [translucent]="false">
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container-img" (click)="takePicture()">
+    <img *ngIf="!profile?.profileImage" src="assets/imgs/no-profile.jpg" alt="">
+    <img *ngIf="profile?.profileImage" [src]="profile?.profileImage" alt="">
+  </div>
+
+  <ion-list class="profile-info" *ngIf="profile">
+    <ion-item lines="none">
+      <ion-input type="text" placeholder="Nombre" [(ngModel)]="profile.name" (ionBlur)="updateUser()"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input type="text" placeholder="Email" [(ngModel)]="profile.email" [disabled]="true " ></ion-input>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

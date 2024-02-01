@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+import { IUser } from 'src/app/model/interfaces/user.interface';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -12,18 +14,40 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 export class MenuComponent  implements OnInit {
 
   idLog: string = 'MenuComponent'
+  @Input() user: IUser = {
+    createdAt: Date.now(),
+    email: '',
+    name: '',
+    profileImage: '',
+    state: '',
+    typeAuthentication: '',
+    updatedAt: Date.now()
+  }
+  menus: {
+    icon: string;
+    text: string;
+    url: string;
+  }[] = [
+    {
+      icon: 'newspaper-outline',
+      text: 'Notas',
+      url: '/home'
+    }
+  ]
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private alertService: AlertService,
     private logger: LoggerService,
+    private menuController: MenuController,
   ) { }
 
   ngOnInit() {}
 
   goToProfile(){
-
+    this.router.navigateByUrl('/home/profile')
+    this.menuController.close()
   }
 
   async logOut(){
@@ -36,5 +60,9 @@ export class MenuComponent  implements OnInit {
     } catch (error) {
       this.logger.error(this.idLog, this.logOut.name, {info: 'Error', error})
     }
+  }
+
+  goToPage(url: string){
+    this.router.navigateByUrl(url)
   }
 }

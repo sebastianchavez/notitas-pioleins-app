@@ -11,9 +11,14 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./note-list/note-list.module').then( m => m.NoteListPageModule)
-      }
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+      },
     ]
   },
+
 ];
 
 @NgModule({

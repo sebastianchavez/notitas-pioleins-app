@@ -1,0 +1,21 @@
+.container-img {
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 150px;
+    }
+}
+
+.profile-info{
+    ion-input {
+        font-size: 1.2rem;
+        text-align: center !important;
+    }
+    padding-left: 1rem;
+    padding-right: 1.5rem;
+}

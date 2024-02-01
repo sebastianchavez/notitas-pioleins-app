@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore'
+import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { BehaviorSubject, firstValueFrom, map } from 'rxjs';
 import { IUser } from 'src/app/model/interfaces/user.interface';
@@ -21,6 +22,7 @@ export class UserService {
     private angularFirestore: AngularFirestore,
     private storageService: StorageService,
     private angularFireAuth: AngularFireAuth,
+    private angularFireStorage: AngularFireStorage
   ) {
     this.userCollection = this.angularFirestore.collection('users')
   }
@@ -100,6 +102,24 @@ export class UserService {
     } catch (error) {
       throw error
     }
+  }
+
+  async updateUserDate(user: IUser): Promise<any>{
+    try {
+      const response = await this.userCollection.doc(user.idUser).set(user)
+      this.userSubject.next(user)
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
+  updatePicture(name: string, image: string, userId: string){
+    return this.angularFireStorage.ref(`pictures/${userId}/profile/${name}`).putString(image, 'data_url')
+  }
+
+  getDownloadUrl(name: string, userId: string): Promise<any> {
+    return firstValueFrom(this.angularFireStorage.ref(`pictures/${userId}/profile/${name}`).getDownloadURL())
   }
 
   logOut() {

@@ -2,13 +2,19 @@
   <ion-content>
     <ion-item button class="profile" (click)="goToProfile()">
         <div class="container-profile">
-          <img src="assets/imgs/no-profile.jpg" alt="">
-          <ion-label>Nombre de usuario</ion-label>
+          <img *ngIf="user.profileImage != ''" [src]="user.profileImage" alt="">
+          <img *ngIf="user.profileImage == ''" src="assets/imgs/no-profile.jpg" alt="">
+          <ion-label class="name">{{user.name}}</ion-label>
+          <ion-label class="email">{{user.email}}</ion-label>
         </div>
     </ion-item>
     <div class="container-list">
       <ion-list id="inbox-list">
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of []; let i = index">
+        <ion-menu-toggle auto-hide="false" *ngFor="let m of menus; let i = index">
+          <ion-item (click)="goToPage(m.url)" button>
+            <ion-icon slot="start" [name]="m.icon"></ion-icon>
+            <ion-label>{{m.text}}</ion-label>
+          </ion-item>
         </ion-menu-toggle>
       </ion-list>
       <ion-item button (click)="logOut()" lines="none">
