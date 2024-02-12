@@ -8,6 +8,7 @@ export class AlertService {
 
   constructor(
     private alertController: AlertController,
+    private toastController: ToastController,
   ){}
 
   confirm(header: string, confirmText: string, cancelText: string): Promise<boolean>{
@@ -35,6 +36,23 @@ export class AlertService {
         reject(error)
       }
     })
+  }
+
+  async alert(header: string, textButton: string){
+    const alert = await this.alertController.create({
+      header,
+      buttons: [textButton]
+    })
+    await alert.present()
+  }
+
+  async toast(message: string, duration: number = 1500, position: "top" | "bottom" | "middle" | undefined = "bottom") {
+    const toast = await this.toastController.create({
+      message,
+      duration,
+      position
+    })
+    await toast.present()
   }
  
 }

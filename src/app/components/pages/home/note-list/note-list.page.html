@@ -10,17 +10,25 @@
 <ion-content [fullscreen]="true">
  
     <ion-list>
-      <ion-item-sliding *ngFor="let note of notes">
-        <ion-item>
-          <ion-label>{{note.title}}</ion-label>
+        <ion-item *ngFor="let note of notes" class="note" (click)="openModal(note)">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="9" class="col-left">
+                <ion-label class="title-col">{{note.title.length > 20 ? (note.title | slice:0:20) + '...' : note.title}}</ion-label>
+                <ion-label class="description-col">{{note.description.length > 150 ? (note.description | slice:0:150) + '...' : note.description}}</ion-label>
+              </ion-col>
+              <ion-col size="3" class="col-right">
+                <ion-label class="date">{{note.createdAt | date:'dd-MM-yyyy'}}</ion-label>
+                <ion-icon *ngIf="note.lists.length > 0" name="checkmark-circle-outline"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-item>
-    
-        <ion-item-options>
-          <ion-item-option (click)="openModal(note)">Editar</ion-item-option>
-          <ion-item-option color="danger" (click)="deleteNote(note)">Eliminar</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
     </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="getMoreNotes($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
       <ion-fab-button  (click)="openModal()" color="tertiary">

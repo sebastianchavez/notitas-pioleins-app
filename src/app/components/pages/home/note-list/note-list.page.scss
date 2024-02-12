@@ -1,0 +1,30 @@
+.note {
+    --min-height: 7rem;
+}
+
+.col-left{
+    color: #2C3E50;
+    .title-col{
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .description-col{
+        font-size: .8rem;
+        color: #34495E !important;
+    }
+}
+
+.col-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    ion-icon{
+        font-size: 1.3rem;
+    }    
+    .date{
+        font-style: italic;
+        font-size: .9rem;
+    }
+}

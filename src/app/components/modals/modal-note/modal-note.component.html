@@ -11,7 +11,8 @@
         <ng-template>
           <ion-content>
             <ion-list>
-              <ion-item lines="none" [button]="true" [detail]="false" (click)="addList()">Agregar lista</ion-item>              
+              <ion-item [button]="true" [detail]="false" (click)="addList()">Agregar lista</ion-item>              
+              <ion-item lines="none" [button]="true" [detail]="false" (click)="deleteNote()">Eliminar nota</ion-item>              
             </ion-list>
           </ion-content>
         </ng-template>
@@ -23,7 +24,7 @@
 <ion-content>
   <div class="container-title">
     <ion-input class="title" type="text" placeholder="Título" [(ngModel)]="note.title"></ion-input>
-    <ion-textarea rows="3" placeholder="Descripción" [(ngModel)]="note.description"></ion-textarea>
+    <ion-textarea [rows]="note.description && note.description.length < 45  ? 3 : (note.description.length / 45) + 3" placeholder="Descripción" [(ngModel)]="note.description"></ion-textarea>
   </div>
 
 

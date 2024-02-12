@@ -27,7 +27,6 @@ export class ModalNoteComponent  implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.note);
   }
 
   async onWillDismiss(){
@@ -72,6 +71,20 @@ export class ModalNoteComponent  implements OnInit {
       }
     } catch (error) {
       this.logger.log(this.idLog, this.deleteList.name, {index: 'Error'})      
+    }
+  }
+
+  async deleteNote(){
+    try {
+      const confirm = await this.alertService.confirm('Desea eliminar esta nota?', 'Si', 'No')
+      if(confirm){
+        await this.noteService.deleteNote(this.note)
+        this.modalController.dismiss()
+        this.alertService.toast('Nota eliminada')
+      }
+    } catch (error) {
+        this.alertService.alert('Problemas al eliminar nota, por favor intente más tarde', 'Entendido')
+      this.logger.error(this.idLog, this.deleteNote.name, {info: 'Error', error})
     }
   }
 }

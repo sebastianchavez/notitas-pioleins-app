@@ -28,8 +28,12 @@ export class NoteService {
     return this.noteCollection.doc(note.idNote).set(note)
   }
 
-  getNotes(idUser: string): Observable<INote[]>{
-    this.noteCollection = this.angularFirestore.collection<INote>('notes', (ref => ref.where('idUser', '==', idUser).orderBy('createdAt', 'desc').startAt(Date.now())))
+  getNotes(idUser: string, lastDocument?: INote, limit: number = 10,): Observable<INote[]>{
+    let query : QueryFn = (ref => ref.where('idUser', '==', idUser).orderBy('createdAt', 'desc').startAt(Date.now()).limit(limit))
+    if(lastDocument){
+      query = (ref => ref.where('idUser', '==', idUser).orderBy('createdAt', 'desc').startAfter(lastDocument.createdAt).limit(limit))
+    } 
+    this.noteCollection = this.angularFirestore.collection<INote>('notes', query)
     return this.noteCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => a.payload.doc.data() as INote))
     )
