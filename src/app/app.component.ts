@@ -5,6 +5,8 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './services/storage/storage.service';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -29,12 +31,9 @@ export class AppComponent implements OnInit {
   }
 
   initializeApp(){
-    this.platform.ready().then(() => {
-      GoogleAuth.initialize({
-        clientId: environment.clientId,
-        scopes: ['profile', 'email'],
-        grantOfflineAccess: true
-      })
+    this.platform.ready().then(async () => {
+        GoogleAuth.initialize()
+        console.log('GoogleAuth init ok');
     })
   }
 

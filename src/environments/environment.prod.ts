@@ -10,5 +10,5 @@ export const environment = {
   },
   clientId: "1054027898479-mu9202e9krmdbljngbc1bjddvnmleehg.apps.googleusercontent.com",
   production: true,
-  debug: false
+  debug: true
 };

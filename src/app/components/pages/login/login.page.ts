@@ -26,7 +26,8 @@ export class LoginPage implements OnInit {
       const response = await this.userService.login()
       this.router.navigateByUrl('/home')
       this.logger.log(this.idLog, this.login.name, {info: 'Success', response})
-    } catch (error) {
+    } catch (error: any) {
+      alert(error["stack"])
       this.logger.error(this.idLog, this.login.name, {info: 'Error', error})
     }
   }

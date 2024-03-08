@@ -93,12 +93,15 @@ export class NoteListPage implements OnInit {
   }
 
   getMoreNotes(ev: any){
-    this.noteService.getNotes(this.user?.idUser!, this.notes[this.notes.length -1])
+    this.noteService.getNotes(this.user?.idUser!, this.notes[this.notes.length - 1])
       .subscribe(res => {
-        this.logger.log(this.idLog, this.getMoreNotes.name, {info: 'Success', response: res})
-        res.forEach((x) => {
-          this.notes.push(x)
-        })
+        if(res.length == 0){
+          this.alertService.toast("No hay más notas registradas")
+        } else {
+          res.forEach(x => {
+            this.notes.push(x)
+          })
+        }
       })
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();

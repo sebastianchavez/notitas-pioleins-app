@@ -8,6 +8,7 @@ import { IUser } from 'src/app/model/interfaces/user.interface';
 import { StorageService } from '../storage/storage.service';
 import { Capacitor } from '@capacitor/core';
 import { GoogleAuthProvider } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,13 @@ export class UserService {
       const isNative = Capacitor.isNativePlatform()
       let responseGoogle
       // TODO: Autenticar con google
+      // alert(isNative)
+      // responseGoogle = (await this.angularFireAuth.signInWithPopup(new  GoogleAuthProvider())).additionalUserInfo?.profile
       if(isNative){
-        responseGoogle = await GoogleAuth.signIn()
-      } else {
-        responseGoogle = (await this.angularFireAuth.signInWithPopup(new  GoogleAuthProvider())).additionalUserInfo?.profile
-      }
+          responseGoogle = await GoogleAuth.signIn()
+        } else {
+          responseGoogle = (await this.angularFireAuth.signInWithPopup(new  GoogleAuthProvider())).additionalUserInfo?.profile
+        }
 
       const profile: any = responseGoogle
       
@@ -71,6 +74,7 @@ export class UserService {
         return this.userCollection.doc(idUser).set(user)
       }
     } catch (error) {
+      alert(JSON.stringify(error))
       throw error
     }
   }
